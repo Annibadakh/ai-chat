@@ -7,35 +7,44 @@ import { v4 as uuidv4 } from 'uuid';
 import { detectPlugin } from './utils/parser';
 
 const App = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([])
   const [isClear, setIsClear] = useState(false)
 
+  
   useEffect(() => {
-    const storedMessages = loadMessages();
-    setMessages(storedMessages);
-    setIsClear(false);
+  const storedMessages = loadMessages()
+  setMessages(storedMessages)
+  console.log("msg loaded", storedMessages);
+  setIsClear(false)
   }, [isClear]);
+
 
   useEffect(() => {
     if (messages.length > 0) {
-      saveMessages(messages);
-    }
+    saveMessages(messages);
+    console.log("msgs saved")
+  }
   }, [messages]);
 
 
-  const handleClearHistory = async () => {
-    await ClearHistory();
-    setIsClear(true);
-
+const handleClearHistory = async () => {
+    const isCon = confirm("History Deletion... Are you sure ??")
+    if(isCon){
+      await ClearHistory()
+      setIsClear(true);
+      alert("History Deleted !!")
+    }
   }
+
+
   const handleSendMessage = async (text) => {
-    const userMessage = {
-      id: uuidv4(),
-      sender: 'user',
-      content: text,
-      type: 'text',
-      timestamp: new Date().toISOString()
-    };
+  const userMessage = {
+    id: uuidv4(),
+    sender: 'user',
+    content: text,
+    type: 'text',
+    timestamp: new Date().toISOString()
+  };
 
     setMessages(prev => [...prev, userMessage]);
 
@@ -53,7 +62,8 @@ const App = () => {
         timestamp: new Date().toISOString()
       };
       setMessages(prev => [...prev, pluginMessage]);
-    } else {
+    }
+    else {
       const defaultMessage = {
         id: uuidv4(),
         sender: 'assistant',
@@ -69,10 +79,10 @@ const App = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
-      <div className="flex-1 overflow-auto">
-        <ChatWindow messages={messages} />
-      </div>
-      <div className="p-4 border-t bg-white">
+    <div className="flex-1 overflow-auto">
+      <ChatWindow messages={messages} />
+    </div>
+      <div className="p-4  bg-white">
         <ChatInput onSend={handleSendMessage} onClear={handleClearHistory} />
       </div>
     </div>

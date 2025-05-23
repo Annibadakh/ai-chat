@@ -5,8 +5,8 @@ export const definePlugin = {
     return {
       word,
       definitions: [
-        'A mock definition of the word.',
-        'Another possible meaning for demonstration.'
+        'A sample defnition of word',
+        'Similar meaning of word'
       ]
     };
   }

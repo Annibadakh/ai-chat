@@ -4,7 +4,7 @@ export const weatherPlugin = {
   execute: async (city) => {
     return {
       city,
-      temperature: '22°C'
+      temperature: '27 celcius'
     };
   }
 };

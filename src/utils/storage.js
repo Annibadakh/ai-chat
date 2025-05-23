@@ -1,6 +1,6 @@
 export function saveMessages(messages) {
   localStorage.setItem('chat_history', JSON.stringify(messages));
-  console.log(localStorage.getItem('chat_history'), "this is local storage")
+  console.log(localStorage.getItem('chat_history'), "this is local storage");
 }
 
 export function loadMessages() {
